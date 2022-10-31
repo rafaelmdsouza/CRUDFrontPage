@@ -1,0 +1,124 @@
+<div class="mt-5 mx-10">
+  <div class="flex align-middle my-5">
+    <mat-form-field class="w-3/5 mx-auto hover:bg-violet-50 active:bg-violet-50 rounded-full shadow-md">
+      <mat-icon class="mx-3 align-middle" matPrefix>search</mat-icon>
+      <mat-label class="mt-1">Search</mat-label>
+      <input #search type="search" matInput autocomplete="off" (keyup)="applyFilter($event)" placeholder="Type seach term here" />
+    </mat-form-field>
+    <div class="ml-auto my-auto">
+      <button
+      mat-raised-button
+      class="hover:bg-violet-400 "
+      (click)="openIngredientDialog()"
+      color="primary"
+    >
+      Add Ingredient
+    </button>
+    </div>
+
+
+  </div>
+<div class="overflow-auto max-h-[53vh]">
+  <table
+    #table
+    mat-table
+    [dataSource]="dataSource"
+    class="shadow-md bg-stone-50 w-full"
+    matSort
+    (matSortChange)="sortData($event)"
+    matSortDisableClear="true"
+  >
+    <ng-container matColumnDef="Name">
+      <th
+        mat-sort-header="Name"
+        mat-header-cell
+        *matHeaderCellDef
+        class="font-semibold text-center "
+      >
+        Name
+      </th>
+      <td mat-cell *matCellDef="let ingredient">{{ ingredient.Name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Group">
+      <th mat-header-cell *matHeaderCellDef class="font-semibold ">
+        Food Group
+      </th>
+      <td mat-cell *matCellDef="let ingredient">{{ ingredient.GroupId_id.Name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Quantity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="Quantity" class="font-semibold ">
+        Quantity
+      </th>
+      <td mat-cell *matCellDef="let ingredient">
+        {{ ingredient.Quantity }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="QuantityType">
+      <th mat-header-cell *matHeaderCellDef class="font-semibold ">
+        Quantity Type
+      </th>
+      <td mat-cell *matCellDef="let ingredient">{{ingredient.QuantityTypeId_id.Name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="ExpirationDate">
+      <th mat-header-cell *matHeaderCellDef class="font-semibold ">
+        Expiration Date
+      </th>
+      <td mat-cell *matCellDef="let ingredient">{{ ingredient.ExpirationDate |date:'M/Y' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef class="font-semibold">
+        Action
+      </th>
+      <td mat-cell *matCellDef="let ingredient">
+        <button mat-icon-button (click)="editIngredient(ingredient)">
+          <mat-icon class="text-[#6951cb]">edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="delete(ingredient.Id)">
+          <mat-icon class="text-red-700">delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr
+      mat-header-row
+      *matHeaderRowDef="displayedColumns"
+      class="uppercase bg-stone-50"
+    ></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      class="font-medium whitespace-nowrap hover:bg-violet-50"
+    ></tr>
+  </table>
+</div>
+  <mat-paginator  class="bg-stone-100 shadow-md" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+  <div class="flex justify-end ml-auto">
+    <div class='m-3'>
+    <button
+      mat-raised-button
+      class="hover:bg-violet-400 mx-5"
+      (click)="openFoodGroupDialog()"
+      color="primary"
+    >
+      Add Food Group
+    </button>
+  </div>
+    <div class='m-3'>
+    <button
+      mat-raised-button
+      class="hover:bg-violet-400 mx-5"
+      (click)="openQuantityTypeDialog()"
+      color="primary"
+    >
+      Add Quantity Type
+    </button>
+  </div>
+  </div>
+
+</div>

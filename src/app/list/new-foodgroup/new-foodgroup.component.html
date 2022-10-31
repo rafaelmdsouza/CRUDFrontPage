@@ -1,0 +1,24 @@
+<div class="w-full">
+  <div class="px-5 mt-2">
+    <h2
+      mat-dialog-title
+      class="ml-1 text-sm font-medium text-[#6951cb] md:ml-2"
+    >
+      Add a new food group to the select
+    </h2>
+
+    <mat-dialog-content class="w-full">
+      <form [formGroup]="form">
+        <mat-form-field class="w-full" appearance="outline">
+          <mat-label> Name </mat-label>
+          <input matInput formControlName="Name" autocomplete="off" />
+        </mat-form-field>
+        </form>
+        </mat-dialog-content>
+
+  <mat-dialog-actions class="mt-5" align="end">
+    <button (click)="postFoodGroup()" mat-button class="bg-[#6951cb] hover:bg-violet-400 text-white">
+      Save
+    </button>
+  </mat-dialog-actions>
+</div>
